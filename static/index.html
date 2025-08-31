@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting Actions</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📝 Meeting Actions</h1>
+            <p>Extract decisions and action items from meeting transcripts</p>
+        </header>
+
+        <main>
+            <!-- Step 1: Transcript Input -->
+            <section class="card">
+                <h2>1. Meeting Transcript</h2>
+                <form id="transcriptForm">
+                    <textarea 
+                        id="transcript" 
+                        placeholder="Paste your meeting transcript here..."
+                        rows="8"
+                        required
+                    ></textarea>
+                    <button type="submit" class="btn primary">📤 Ingest Transcript</button>
+                </form>
+                <div id="transcriptStatus" class="status"></div>
+            </section>
+
+            <!-- Step 2: Analysis Configuration -->
+            <section class="card" id="analysisSection" style="display: none;">
+                <h2>2. Analysis Configuration</h2>
+                <form id="analysisForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="team">Team</label>
+                            <input type="text" id="team" placeholder="e.g., Product Team" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product">Product</label>
+                            <input type="text" id="product" placeholder="e.g., Mobile App" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="meetingDate">Meeting Date</label>
+                            <input type="date" id="meetingDate" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn primary">🔍 Analyze Meeting</button>
+                </form>
+                <div id="analysisStatus" class="status"></div>
+            </section>
+
+            <!-- Step 3: Analysis Results -->
+            <section class="card" id="resultsSection" style="display: none;">
+                <h2>3. Analysis Results</h2>
+                
+                <div class="results-tabs">
+                    <button class="tab-btn active" data-tab="decisions">Decisions</button>
+                    <button class="tab-btn" data-tab="actions">Action Items</button>
+                </div>
+
+                <div id="decisionsTab" class="tab-content active">
+                    <h3>📋 Decisions</h3>
+                    <div id="decisionsList" class="items-list"></div>
+                </div>
+
+                <div id="actionsTab" class="tab-content">
+                    <h3>✅ Action Items</h3>
+                    <div id="actionsList" class="items-list"></div>
+                </div>
+
+                <div class="sync-section">
+                    <div class="form-group">
+                        <label for="meetingUrl">Meeting URL (optional)</label>
+                        <input type="url" id="meetingUrl" placeholder="https://zoom.us/rec/...">
+                    </div>
+                    <button id="syncBtn" class="btn success">🚀 Sync to Notion</button>
+                </div>
+                <div id="syncStatus" class="status"></div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
