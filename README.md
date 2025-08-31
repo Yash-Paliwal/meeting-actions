@@ -16,15 +16,23 @@ A minimal web app that extracts **Decisions** and **Action Items** from meeting 
 
 ### 1. Prerequisites
 
-- Python 3.11+
-- Google AI API key
-- Notion integration token and database IDs
+- Python 3.9+
+- Google AI API key ([Get one here](https://aistudio.google.com/app/apikey))
+- Notion integration token and database IDs ([Setup guide below](#notion-setup))
 
-### 2. Setup
+### 2. Clone and Setup
 
 ```bash
-# Clone and enter directory
+# Clone the repository
+git clone <your-repo-url>
 cd meeting-actions
+
+# Create virtual environment
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
 
 # Copy environment template
 cp env.example .env
@@ -37,13 +45,7 @@ NOTION_DECISIONS_DB=your_decisions_database_id
 GEMINI_MODEL=gemini-2.5-flash
 ```
 
-### 3. Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Run the Application
+### 3. Run the Application
 
 ```bash
 python app.py
@@ -51,7 +53,7 @@ python app.py
 
 The app will be available at `http://localhost:8000`
 
-### 5. Using Docker
+### 4. Using Docker
 
 ```bash
 # Build the image
@@ -86,24 +88,52 @@ Sync analysis results to Notion databases.
 Health check endpoint.
 - **Returns**: `{"ok": true}`
 
-## Notion Database Setup
+## Notion Setup
 
-### Backlog Database Properties:
-- **Name** (Title)
-- **Status** (Select: Todo, In Progress, Done)
-- **Priority** (Select: P0, P1, P2)
+### Step 1: Create Notion Integration
+
+1. Go to [Notion Integrations](https://www.notion.so/my-integrations)
+2. Click **"+ New integration"**
+3. Give it a name (e.g., "Meeting Actions")
+4. Select your workspace
+5. Click **"Submit"**
+6. Copy the **"Internal Integration Token"** (starts with `secret_`)
+
+### Step 2: Create Databases
+
+Create two databases in Notion with these exact properties:
+
+#### **Backlog Database** (for Action Items):
+- **Name** (Title) - Required
+- **Status** (Select) - Options: Todo, In Progress, Done
+- **Priority** (Select) - Options: P0, P1, P2  
 - **Due** (Date)
 - **Notes** (Rich Text)
 - **Source** (URL)
-- **External ID** (Rich Text)
+- **External ID** (Rich Text) - Required
 
-### Decisions Database Properties:
-- **Name** (Title)
+#### **Decisions Database**:
+- **Name** (Title) - Required
 - **Owner** (Rich Text)
 - **Rationale** (Rich Text)
 - **Effective Date** (Date)
 - **Source** (URL)
-- **External ID** (Rich Text)
+- **External ID** (Rich Text) - Required
+
+### Step 3: Share Databases with Integration
+
+1. Open each database
+2. Click **"Share"** (top right)
+3. Add your integration
+4. Give it **"Edit"** permissions
+5. Click **"Invite"**
+
+### Step 4: Get Database IDs
+
+1. Open each database in Notion
+2. Copy the URL - it looks like: `https://notion.so/workspace/DATABASE_ID?v=...`
+3. Extract the 32-character DATABASE_ID (remove dashes)
+4. Add to your `.env` file
 
 ## Usage
 
