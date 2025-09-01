@@ -14,18 +14,69 @@
         </header>
 
         <main>
-            <!-- Step 1: Transcript Input -->
+            <!-- Step 1: Meeting Input -->
             <section class="card">
-                <h2>1. Meeting Transcript</h2>
-                <form id="transcriptForm">
-                    <textarea 
-                        id="transcript" 
-                        placeholder="Paste your meeting transcript here..."
-                        rows="8"
-                        required
-                    ></textarea>
-                    <button type="submit" class="btn primary">📤 Ingest Transcript</button>
-                </form>
+                <h2>1. Meeting Input</h2>
+                
+                <!-- Input Method Tabs -->
+                <div class="input-tabs">
+                    <button class="input-tab-btn active" data-tab="transcript">📝 Text Transcript</button>
+                    <button class="input-tab-btn" data-tab="upload">🎤 Audio/Video Upload</button>
+                </div>
+
+                <!-- Text Transcript Tab -->
+                <div id="transcriptTab" class="input-tab-content active">
+                    <form id="transcriptForm">
+                        <textarea 
+                            id="transcript" 
+                            placeholder="Paste your meeting transcript here..."
+                            rows="8"
+                            required
+                        ></textarea>
+                        <button type="submit" class="btn primary">📤 Ingest Transcript</button>
+                    </form>
+                </div>
+
+                <!-- File Upload Tab -->
+                <div id="uploadTab" class="input-tab-content">
+                    <form id="uploadForm">
+                        <div class="upload-area" id="uploadArea">
+                            <div class="upload-content">
+                                <div class="upload-icon">🎤</div>
+                                <h3>Upload Audio/Video File</h3>
+                                <p>Drag & drop your meeting recording here, or click to browse</p>
+                                <p class="upload-formats">Supported: MP3, MP4, WAV, M4A, AVI, MOV (max 25MB) - Note: Audio transcription coming soon!</p>
+                                <input type="file" id="fileInput" accept="audio/*,video/*" style="display: none;">
+                                <button type="button" class="btn primary" onclick="document.getElementById('fileInput').click()">
+                                    📁 Choose File
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" style="margin-top: 1rem;">
+                            <label for="language">Language (optional)</label>
+                            <select id="language">
+                                <option value="">Auto-detect</option>
+                                <option value="en">English</option>
+                                <option value="es">Spanish</option>
+                                <option value="fr">French</option>
+                                <option value="de">German</option>
+                                <option value="it">Italian</option>
+                                <option value="pt">Portuguese</option>
+                                <option value="ru">Russian</option>
+                                <option value="ja">Japanese</option>
+                                <option value="ko">Korean</option>
+                                <option value="zh">Chinese</option>
+                                <option value="hi">Hindi</option>
+                            </select>
+                        </div>
+                        
+                                                        <button type="submit" class="btn primary" id="uploadBtn" disabled>
+                                    🎤 Process & Upload
+                                </button>
+                    </form>
+                </div>
+                
                 <div id="transcriptStatus" class="status"></div>
             </section>
 
@@ -79,6 +130,27 @@
                     <button id="syncBtn" class="btn success">🚀 Sync to Notion</button>
                 </div>
                 <div id="syncStatus" class="status"></div>
+            </section>
+
+            <!-- Step 4: History & Recovery -->
+            <section class="card" id="historySection">
+                <h2>4. History & Recovery</h2>
+                <p>Access previous transcripts and analysis results. Never lose your work!</p>
+                
+                <div class="history-tabs">
+                    <button class="history-tab-btn active" data-tab="transcripts">Recent Transcripts</button>
+                    <button class="history-tab-btn" data-tab="analyses">Recent Analyses</button>
+                </div>
+
+                <div id="transcriptsHistoryTab" class="history-tab-content active">
+                    <button id="loadTranscriptsBtn" class="btn primary">📜 Load Recent Transcripts</button>
+                    <div id="transcriptsList" class="history-list"></div>
+                </div>
+
+                <div id="analysesHistoryTab" class="history-tab-content">
+                    <button id="loadAnalysesBtn" class="btn primary">📊 Load Recent Analyses</button>
+                    <div id="analysesList" class="history-list"></div>
+                </div>
             </section>
         </main>
     </div>

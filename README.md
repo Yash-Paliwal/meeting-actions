@@ -4,6 +4,7 @@ A minimal web app that extracts **Decisions** and **Action Items** from meeting 
 
 ## Features
 
+- 🎤 Upload audio/video recordings and auto-transcribe using Gemini
 - 📝 Paste meeting transcripts and extract structured data
 - 🤖 AI-powered analysis using Google's Gemini 2.5 models
 - 📋 Extract decisions with owners, rationale, and effective dates
@@ -17,7 +18,7 @@ A minimal web app that extracts **Decisions** and **Action Items** from meeting 
 ### 1. Prerequisites
 
 - Python 3.9+
-- Google AI API key ([Get one here](https://aistudio.google.com/app/apikey))
+- Google AI API key ([Get one here](https://aistudio.google.com/app/apikey)) - Used for both transcription and analysis
 - Notion integration token and database IDs ([Setup guide below](#notion-setup))
 
 ### 2. Clone and Setup
@@ -137,11 +138,12 @@ Create two databases in Notion with these exact properties:
 
 ## Usage
 
-1. **Paste Transcript**: Copy your meeting transcript into the text area
-2. **Configure Analysis**: Enter team name, product, and meeting date
-3. **Analyze**: Click "Analyze Meeting" to extract decisions and actions
-4. **Review Results**: Use tabs to review extracted decisions and action items
-5. **Sync to Notion**: Optionally add meeting URL and sync to Notion databases
+1. **Upload Recording**: Drag & drop or select an audio/video file (MP3, MP4, WAV, etc.)
+2. **Or Paste Transcript**: Alternatively, paste your meeting transcript into the text area
+3. **Configure Analysis**: Enter team name, product, and meeting date
+4. **Analyze**: Click "Analyze Meeting" to extract decisions and actions
+5. **Review Results**: Use tabs to review extracted decisions and action items
+6. **Sync to Notion**: Optionally add meeting URL and sync to Notion databases
 
 ## Environment Variables
 
